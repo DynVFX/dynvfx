@@ -1,0 +1,10 @@
+**/__pycache__
+.vscode/
+/vis
+/infer
+/*.sh
+/runs
+/video_exp
+/model/segment_anything_2/sam2/_C.so
+/model/segment_anything_2/build
+/evf-sam2

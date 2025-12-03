@@ -1,0 +1,69 @@
+# Paths
+data_path: 'data/example/box/original'
+output_path: 'output/example/box/puppy'
+masks_dir: 'source_masks/box'
+masks_internal_path: "for_masks/mask"
+latents_path: 'inversions/example/box/ddim_latents'
+
+# Prompts
+prompt: "A couple is sitting on a beige couch in a cozy, well-lit living room with light wooden walls and white furniture. They are both smiling and excitedly opening a large cardboard box placed on the couch between them. The man is wearing a light blue shirt over a white t-shirt, and the woman is wearing a beige sweater. The room is softly illuminated by natural light coming through a window on the right side, and there are two white lamps on the cabinet behind them."
+target_prompt: "A couple sits on a cozy couch, their faces lighting up with joy as a curious puppy peeks its head out of a cardboard box. The puppy, with its fluffy fur and wide eyes, looks around, trying to understand its new surroundings. The warm natural light from the window highlights the puppy's features, casting soft shadows that blend seamlessly with the room's inviting ambiance. The couple's excitement is palpable, their smiles broadening as they welcome the adorable new addition, enhancing the heartwarming and cheerful atmosphere of the living room."
+negative_prompt: ""
+
+# Words for Attention extraction
+target_word: "puppy"
+
+# Words for Attention injection
+object_of_interest_mask_dict:
+            {
+                "box": 'box',
+            }
+object_of_interest_prompts_dict:
+  {
+    "box": 'box',
+  }
+
+# Diffusion
+model_key: "THUDM/CogVideoX-5b"
+guidance_scale: 6
+n_timesteps: 50
+max_frames: 49
+resolution: [720, 480]
+max_guidance_timestep: 0.92
+min_guidance_timestep: 0.3
+slim_min_guidance_timestep: 0.
+
+device: 'cuda'
+precision: 'bfloat16'
+
+# Random Sampling
+seed: 1
+
+# Evaluation
+wandb_project: 'check_code'
+wandb_entity: 'danahy' #'vit-vis'
+with_logger: True
+
+# Attention Control
+register_guidance: True
+
+# Injection
+with_injection: True
+inject_from_invert: True
+inject_attn_transformer_layers: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39, 40, 41]
+min_injection_timestep: 0.6
+extend_st_for_text_keys: True
+mask_injection: True
+max_masked_injection_timestep: 0.92
+
+stop_injection_t: 100
+with_mask_opening: True
+with_mask_erosion: False
+method_steps: [919, 899, 779, 679, 579, 479, 379]
+semantic_level: True
+id_for_sam: "5_key_frames"
+
+foreground_dropout_percentage: 0.7
+background_dropout_percentage: 0.05 # 0.025
+with_cpu_offload: False
+selective_attention_type: "anchor" # choices=["anchor", "full", "masked"]

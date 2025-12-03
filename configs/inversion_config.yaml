@@ -1,0 +1,8 @@
+data_path: 'data/example/box/original'
+output_path: 'inversions/example/box/ddim_latents'
+n_save_timesteps: 50
+max_number_of_frames: 49
+resolution: [720, 480]
+n_inversion_timesteps: 250
+inversion_prompt: ""
+precision: bfloat16

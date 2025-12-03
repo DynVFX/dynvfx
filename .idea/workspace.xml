@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d9ad602b-60a9-4e06-9e53-3dbb373abd3f" name="Changes" comment="init" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "DanahYatim"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/DynVFX/dynvfx.git",
+    "accountId": "d23de297-9375-45ae-91bb-9651fe497c08"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="36GbKKrpefxDYDVfkxawitLVUAx" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/danahy/PycharmProjects/dynvfx",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\danahy\PycharmProjects\dynvfx" />
+      <recent name="C:\Users\danahy\PycharmProjects\dynvfx\assets" />
+      <recent name="C:\Users\danahy\PycharmProjects\dynvfx\configs" />
+      <recent name="C:\Users\danahy\PycharmProjects\dynvfx\vfx_assistant" />
+      <recent name="C:\Users\danahy\PycharmProjects\dynvfx\examples\data\box" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-PY-252.27397.106" />
+        <option value="bundled-python-sdk-4e2b1448bda8-9a97661f3031-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-252.27397.106" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d9ad602b-60a9-4e06-9e53-3dbb373abd3f" name="Changes" comment="" />
+      <created>1764635790816</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1764635790816</updated>
+      <workItem from="1764635792082" duration="62358000" />
+    </task>
+    <task id="LOCAL-00001" summary="initial">
+      <option name="closed" value="true" />
+      <created>1764636798867</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764636798867</updated>
+    </task>
+    <task id="LOCAL-00002" summary="initialize">
+      <option name="closed" value="true" />
+      <created>1764637589320</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1764637589320</updated>
+    </task>
+    <task id="LOCAL-00003" summary="initialize">
+      <option name="closed" value="true" />
+      <created>1764668395887</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764668395887</updated>
+    </task>
+    <task id="LOCAL-00004" summary="initialize">
+      <option name="closed" value="true" />
+      <created>1764714649900</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764714649900</updated>
+    </task>
+    <task id="LOCAL-00005" summary="initialize">
+      <option name="closed" value="true" />
+      <created>1764720106899</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1764720106899</updated>
+    </task>
+    <task id="LOCAL-00006" summary="initialize">
+      <option name="closed" value="true" />
+      <created>1764720644822</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764720644823</updated>
+    </task>
+    <task id="LOCAL-00007" summary="initialize">
+      <option name="closed" value="true" />
+      <created>1764726755785</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1764726755785</updated>
+    </task>
+    <task id="LOCAL-00008" summary="initialize">
+      <option name="closed" value="true" />
+      <created>1764727339500</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1764727339500</updated>
+    </task>
+    <task id="LOCAL-00009" summary="initialize">
+      <option name="closed" value="true" />
+      <created>1764727893647</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1764727893647</updated>
+    </task>
+    <task id="LOCAL-00010" summary="fix run.py typos">
+      <option name="closed" value="true" />
+      <created>1764764264932</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1764764264932</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fix run.py typos">
+      <option name="closed" value="true" />
+      <created>1764765669770</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1764765669770</updated>
+    </task>
+    <task id="LOCAL-00012" summary="refactor naming">
+      <option name="closed" value="true" />
+      <created>1764776477202</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1764776477202</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add requirements.">
+      <option name="closed" value="true" />
+      <created>1764777754345</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1764777754346</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add requirements.">
+      <option name="closed" value="true" />
+      <created>1764781111693</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1764781111694</updated>
+    </task>
+    <task id="LOCAL-00015" summary="init">
+      <option name="closed" value="true" />
+      <created>1764786813502</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1764786813502</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="dfc5a325-fba9-434c-b25d-c74b62046cea" value="TOOL_WINDOW" />
+        <entry key="92460af8-612c-40b7-b85b-969e83788edb" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="92460af8-612c-40b7-b85b-969e83788edb">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="range">
+                    <value>
+                      <list>
+                        <option value="2ff4759d4297c28499442010a0b7bb3e55abfcd5..99633c3687b5989fe90e571de1cad2645c2ede3c" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+        <entry key="dfc5a325-fba9-434c-b25d-c74b62046cea">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="range">
+                    <value>
+                      <list>
+                        <option value="2ff4759d4297c28499442010a0b7bb3e55abfcd5..99633c3687b5989fe90e571de1cad2645c2ede3c" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="initial" />
+    <MESSAGE value="initialize" />
+    <MESSAGE value="fix run.py typos" />
+    <MESSAGE value="refactor naming" />
+    <MESSAGE value="add requirements." />
+    <MESSAGE value="init" />
+    <option name="LAST_COMMIT_MESSAGE" value="init" />
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
+  </component>
+</project>

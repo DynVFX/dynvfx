@@ -1,0 +1,16 @@
+data_path: 'data/example/box/original'
+output_path: 'source_masks/box'
+max_number_of_frames: 49
+object_of_interest_dict:
+  {
+    "box": "box",
+  }
+version: 'YxZhang/evf-sam2-multitask'
+precision: 'fp16' #  choices=["fp32", "bf16", "fp16"]
+image_size: 224
+model_max_length: 512
+local-rank: 0
+load_in_8bit: False
+load_in_4bit: False
+model_type: 'sam2' # choices=["ori", "effi", "sam2"]
+semantic_level: True
