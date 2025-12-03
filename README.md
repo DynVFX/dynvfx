@@ -76,7 +76,7 @@ cd ../..
 
 The model weights (`YxZhang/evf-sam2-multitask`) will be downloaded automatically on first run.
 
-### Set Up OpenAI API Keyy
+### Set Up OpenAI API Key
 This repository uses OpenAI's GPT-4o as the VFX Assistant. Create an API key at [OpenAI Platform](https://platform.openai.com/settings/organization/api-keys).
 
 Save your key in `vfx_assistant/.env`:
@@ -119,7 +119,7 @@ Edit `configs/user_config.yaml` with the following parameters:
 | `latents_path` | Directory for inverted latents                           |
 | `mode` | Run mode: `"auto"`, `"generate"`, or `"execute"`         |
 
-See Tips section for configuration options. 
+See [Tips](#Tips) section for configuration options. 
 
 ---
 
@@ -160,7 +160,7 @@ python inversion.py --user_config_path configs/user_config.yaml
 
 ---
 
-## 3. Running DynVFX 🎬
+## Running DynVFX 🎬
 The pipeline consists of three stages:
 1. **🤖 VFX Assistant** — GPT-4o interprets the edit instruction and generates captions
 2. **🎭 Text-based Segmentation** — EVF-SAM extracts masks of scene elements
