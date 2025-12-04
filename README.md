@@ -65,13 +65,6 @@ python setup.py build_ext --inplace
 cd ../../..
 ```
 
-### Install Dependencies 
-
-```
-pip install -r requirements.txt
-```
-
-
 ### Set Up OpenAI API Key
 This repository uses OpenAI's GPT-4o as the VFX Assistant. Create an API key at [OpenAI Platform](https://platform.openai.com/settings/organization/api-keys).
 
