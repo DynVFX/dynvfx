@@ -48,33 +48,34 @@ conda activate dynvfx
 ```
 pip install torch==2.7.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 ```
-
-
-### Clone Repository and Install Dependencies 
+### Clone Repository and  with Submodules 
 
 ```
-#  Clone the repository
-git clone https://github.com/DynVFX/dynvfx.git
+git clone --recursive https://github.com/DanahYatim/dynvfx.git
 cd dynvfx
-
-# Install dependencies
-pip install -r requirements.txt
 ```
+If you already cloned without `--recursive`:
+
+```
+git submodule update --init --recursive
+```
+
 ### Install EVF-SAM2
 
 ```
-# Clone EVF-SAM into third_party directory
-git clone https://github.com/hustvl/EVF-SAM third_party/evfsam2
 cd third_party/evfsam2
-
-# Install EVF-SAM dependencies
-pip install -e .
-
-# Return to project root
-cd ../..
+pip install -r requirements.txt
+cd model/segment_anything_2
+python setup.py build_ext --inplace
+cd ../../..
 ```
 
-The model weights (`YxZhang/evf-sam2-multitask`) will be downloaded automatically on first run.
+### Install Dependencies 
+
+```
+pip install -r requirements.txt
+```
+
 
 ### Set Up OpenAI API Key
 This repository uses OpenAI's GPT-4o as the VFX Assistant. Create an API key at [OpenAI Platform](https://platform.openai.com/settings/organization/api-keys).
