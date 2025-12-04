@@ -1,9 +1,9 @@
 # Paths
-data_path: 'data/example/box/original'
-output_path: 'output/example/box/puppy'
-masks_dir: 'source_masks/box'
+data_path: 'data/box/original'
+output_path: 'results/box'
+masks_dir: 'data/box/source_masks'
 masks_internal_path: "for_masks/mask"
-latents_path: 'inversions/example/box/ddim_latents'
+latents_path: 'data/box/ddim_latents'
 
 # Prompts
 prompt: "A couple is sitting on a beige couch in a cozy, well-lit living room with light wooden walls and white furniture. They are both smiling and excitedly opening a large cardboard box placed on the couch between them. The man is wearing a light blue shirt over a white t-shirt, and the woman is wearing a beige sweater. The room is softly illuminated by natural light coming through a window on the right side, and there are two white lamps on the cabinet behind them."
@@ -29,7 +29,7 @@ guidance_scale: 6
 n_timesteps: 50
 max_frames: 49
 resolution: [720, 480]
-max_guidance_timestep: 0.92
+max_guidance_timestep: 0.9
 min_guidance_timestep: 0.3
 slim_min_guidance_timestep: 0.
 
@@ -40,9 +40,7 @@ precision: 'bfloat16'
 seed: 1
 
 # Evaluation
-wandb_project: 'check_code'
-wandb_entity: 'danahy' #'vit-vis'
-with_logger: True
+with_logger: False
 
 # Attention Control
 register_guidance: True

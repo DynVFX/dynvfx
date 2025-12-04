@@ -13,7 +13,7 @@ python-dotenv
 opencv-python
 timm
 matplotlib
-av
+av==12.3.0
 safetensors
 huggingface-hub
 pydantic
