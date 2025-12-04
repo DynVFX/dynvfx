@@ -1,7 +1,7 @@
-data_path: 'data/example/box/original'
+data_path: 'data/box/original'
 new_content: "A curious puppy peeking its head out of the box"
 target_folder: "puppy"
-output_path: 'output/example/box/puppy'
-masks_dir: 'source_masks/box'
-latents_path: 'inversions/example/box/ddim_latents'
-mode: "auto"
+output_path: 'results/box'
+masks_dir: 'data/box/source_masks'
+latents_path: 'data/box/ddim_latents'
+mode: "execute"

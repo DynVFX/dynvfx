@@ -11,6 +11,10 @@ from torchvision.transforms.functional import InterpolationMode
 from transformers import AutoTokenizer, BitsAndBytesConfig
 from torchvision.transforms import ToTensor
 from PIL import Image
+
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 from torchvision.io import write_video
 

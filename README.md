@@ -39,8 +39,14 @@ https://github.com/user-attachments/assets/35f4e598-dd2d-40f6-a8a1-76cf99f7e20a
 ### Create New Conda Environment
 
 ```
-conda env create -f environment.yml
+conda create -n dynvfx python=3.12
+conda deactivate
 conda activate dynvfx
+```
+
+### Install PyTorch with CUDA support:
+```
+pip install torch==2.7.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 ```
 
 ### Clone Repository and  with Submodules 
@@ -53,6 +59,10 @@ If you already cloned without `--recursive`:
 
 ```
 git submodule update --init --recursive
+```
+### Install Requirements
+```
+pip install -r requirements.txt
 ```
 
 ### Install and build EVF-SAM2

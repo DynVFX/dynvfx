@@ -1,5 +1,5 @@
-data_path: 'data/example/box/original'
-output_path: 'inversions/example/box/ddim_latents'
+data_path: 'data/box/original'
+output_path: 'data/box/ddim_latents'
 n_save_timesteps: 50
 max_number_of_frames: 49
 resolution: [720, 480]

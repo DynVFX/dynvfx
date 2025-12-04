@@ -1,3 +1,6 @@
+import os
+os.environ["HF_HUB_OFFLINE"] = "1"  # Force offline mode
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
 import sys
 
 sys.path.append("third_party/evfsam2")

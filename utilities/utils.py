@@ -21,7 +21,7 @@ video_options = {
 def load_our_latents_t(t, latents_path):
     latents_t_path = os.path.join(latents_path, f"latent_{t}.pt")
     assert os.path.exists(latents_t_path), f"Missing latent at t {t} path {latents_t_path}"
-    latents = torch.load(latents_t_path)
+    latents = torch.load(latents_t_path, weights_only=False)
     return latents
 
 def save_video(video, path):
