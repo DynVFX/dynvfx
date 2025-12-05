@@ -1,6 +1,6 @@
-import os
-os.environ["HF_HUB_OFFLINE"] = "1"  # Force offline mode
-os.environ["TRANSFORMERS_OFFLINE"] = "1"
+# import os
+# os.environ["HF_HUB_OFFLINE"] = "1"  # Force offline mode
+# os.environ["TRANSFORMERS_OFFLINE"] = "1"
 import sys
 
 sys.path.append("third_party/evfsam2")
@@ -11,6 +11,7 @@ from torchvision.transforms.functional import InterpolationMode
 from transformers import AutoTokenizer, BitsAndBytesConfig
 from torchvision.transforms import ToTensor
 from PIL import Image
+from utilities.utils import save_tensor, load_tensor
 
 
 video_codec = "libx264"

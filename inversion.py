@@ -9,6 +9,7 @@ from PIL import Image
 import torch
 from tqdm import tqdm
 from diffusers import CogVideoXPipeline, CogVideoXDDIMScheduler
+from utilities.utils import save_tensor, load_tensor
 
 DEVICE = "cuda:0"
 
@@ -37,7 +38,7 @@ class PreprocessCogVideo():
         self.vae = self.pipeline.vae
 
         self.pipeline.scheduler = self.scheduler
-        self.pipeline.enable_model_cpu_offload(device=self.device)
+        # self.pipeline.enable_model_cpu_offload(device=self.device)
 
 
     # DDIM Inversion
@@ -80,9 +81,8 @@ class PreprocessCogVideo():
 
 
         with torch.autocast(device_type=self.device, dtype=self.precision):
+            cond_batch = cond.repeat(latent.shape[0], 1, 1)
             for i, t in enumerate(tqdm(timesteps)):
-                cond_batch = cond.repeat(latent.shape[0], 1, 1)
-
                 alpha_prod_t = self.scheduler.alphas_cumprod[t]
                 t_prev = t - self.scheduler.config.num_train_timesteps // self.scheduler.num_inference_steps
                 alpha_prod_t_prev = self.scheduler.alphas_cumprod[t_prev] if t_prev >= 0 else self.scheduler.final_alpha_cumprod
@@ -102,7 +102,7 @@ class PreprocessCogVideo():
                 latent = a_t_prev * latent + b_t_prev * pred_x0
 
                 if t in export_schedule:
-                    torch.save(latent, os.path.join(save_latents_path, f"latent_{t}.pt"))
+                    save_tensor(f"latent_{t}.safetensors", latent, os.path.join(save_latents_path, f"latent_{t}.safetensors"))
 
                 latents.append(latent)
         return latents

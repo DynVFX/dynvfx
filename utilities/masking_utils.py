@@ -5,6 +5,8 @@ from einops import rearrange
 from kornia.morphology import dilation, erosion, opening
 from sklearn.cluster import KMeans
 from torchvision.transforms import ToTensor
+from safetensors.torch import save_file, load_file
+from utilities.utils import save_tensor, load_tensor
 
 
 def return_mask_img(mask):
@@ -76,7 +78,7 @@ def extract_source_masks(object_of_interest_mask_dict, masks_dir, masks_internal
         obj_path = obj_path.replace(" ", "_")
         masks_path = str(masks_dir + f"/{obj_path}/" + masks_internal_path)
         masks_img = [
-            return_mask_img(torch.load(f"{masks_path}/{i:05d}.pt", weights_only=False)[0]) for i in range(max_frames)
+            return_mask_img(load_tensor(f"{i:05d}.safetensors" , f"{masks_path}/{i:05d}.safetensors", weights_only=False)[0]) for i in range(max_frames)
         ]
         obj_masks = torch.stack([ToTensor()(m) for m in masks_img]).to(precision)
         masks = obj_masks if masks is None else masks + obj_masks

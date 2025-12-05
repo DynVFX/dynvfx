@@ -11,6 +11,8 @@ from torchvision.transforms.functional import InterpolationMode
 from transformers import AutoTokenizer, BitsAndBytesConfig
 from torchvision.transforms import ToTensor
 from PIL import Image
+from utilities.utils import save_tensor, load_tensor
+
 
 import matplotlib
 matplotlib.use('Agg')
@@ -165,7 +167,7 @@ class SourceMaskExtractor:
 
                 self.show_mask(out_mask, plt.gca())
                 plt.savefig(str(obj_mask_dir + f"/for_masks/fig/{i:05d}.png"))
-                torch.save(out_mask, str(obj_mask_dir + f"/for_masks/mask/{i:05d}.pt"))
+                save_tensor(f"{i:05d}.safetensors", torch.from_numpy(out_mask), str(obj_mask_dir + f"/for_masks/mask/{i:05d}.safetensors"))
                 self.return_mask_img(out_mask).save(str(obj_mask_dir + f"/for_masks/mask/{i:05d}.png"))
             plt.close("all")
             masks = torch.stack([ToTensor()(m) for m in masks_img]).to("cuda")

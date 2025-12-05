@@ -9,6 +9,7 @@ from typing import List
 from pathlib import Path
 from PIL import Image
 from torchvision.transforms import ToTensor
+from safetensors.torch import save_file, load_file
 
 
 video_codec = "libx264"
@@ -17,11 +18,18 @@ video_options = {
     "preset": "slow",  # Encoding preset (e.g., ultrafast, superfast, veryfast, faster, fast, medium, slow, slower, veryslow)
 }
 
+def save_tensor(name, tensor, path):
+    """Helper to save a single tensor"""
+    save_file({name: tensor.contiguous()}, path)
+
+def load_tensor(name, path):
+    """Helper to load a single tensor"""
+    return load_file(path)[name]
 
 def load_our_latents_t(t, latents_path):
-    latents_t_path = os.path.join(latents_path, f"latent_{t}.pt")
+    latents_t_path = os.path.join(latents_path, f"latent_{t}.safetensors")
     assert os.path.exists(latents_t_path), f"Missing latent at t {t} path {latents_t_path}"
-    latents = torch.load(latents_t_path, weights_only=False)
+    latents = load_tensor(f"latent_{t}.safetensors", latents_t_path)
     return latents
 
 def save_video(video, path):
