@@ -75,106 +75,74 @@ class ModuleWithExtendedAttention(torch.nn.Module):
         self.fg_dropout_percentage = fg_dropout_percentage
         self.bg_dropout_percentage = bg_dropout_percentage
 
-    def apply_selective_attention(self, query, key_cond, value_cond, source_key, source_value, text_seq_length, attention_mask):
-        """
-        Apply selective attention using extended attention mechanisms.
-
-        This implements the core algorithm from the paper, supporting three modes:
-        1. Full Extended Attention: K_cond ∪ K_orig^E
-        2. Masked Extended Attention: K_cond ∪ F(K_orig^E) where F uses M_orig
-        3. Anchor Extended Attention: K_cond ∪ F(K_orig^E) where F uses dropout
-
-        Args:
-            query: Query tensor from target video
-            key_cond: Conditional key tensor
-            value_cond: Conditional value tensor
-            source_key: Source key tensor (K_orig in the paper)
-            source_value: Source value tensor (V_orig in the paper)
-            text_seq_length: Length of text sequence
-            attention_mask: Optional attention mask
-
-        Returns:
-            Modified hidden states with injected selective attention
-        """
+    def apply_selective_attention(self, query, key_cond, value_cond, source_key, source_value, text_seq_length,
+                                  attention_mask):
         assert self.with_injection, "injection must be enabled"
 
-        # Extract spatial components
-        st_source_key = source_key[:, :, text_seq_length:, :].clone()
-        st_source_value = source_value[:, :, text_seq_length:, :].clone()
-
-        # Determine which type of selective attention to apply based on configuration
-        assert self.selective_attention_type in ["full", "masked", "anchor"]
+        # Use views instead of clones where possible
+        st_source_key = source_key[:, :, text_seq_length:, :]
+        st_source_value = source_value[:, :, text_seq_length:, :]
 
         if self.selective_attention_type == "full":
             st_key_cond = torch.cat([key_cond, st_source_key], dim=-2)
             st_value_cond = torch.cat([value_cond, st_source_value], dim=-2)
-
         else:
-            # Masked or Anchor Extended Attention - requires masks
             assert self.masks_for_attn is not None
-            st_key_cond = key_cond
-            st_value_cond = value_cond
+
+            # Rearrange once
             st_source_key_rerange = rearrange(
-                st_source_key,
-                "1 head (f h w) d -> 1 head f h w d",
-                f=self.latent_num_frames,
-                h=self.feature_h,
-                w=self.feature_w,
+                st_source_key, "1 head (f h w) d -> 1 head f h w d",
+                f=self.latent_num_frames, h=self.feature_h, w=self.feature_w,
             )
             st_source_value_rerange = rearrange(
-                st_source_value,
-                "1 head (f h w) d -> 1 head f h w d",
-                f=self.latent_num_frames,
-                h=self.feature_h,
-                w=self.feature_w,
+                st_source_value, "1 head (f h w) d -> 1 head f h w d",
+                f=self.latent_num_frames, h=self.feature_h, w=self.feature_w,
             )
-            latent_morig = self.masks_for_attn
-            latent_morig = rearrange(
-                latent_morig,
-                "f c h w -> c f h w"
-            )
+
+            latent_morig = rearrange(self.masks_for_attn, "f c h w -> c f h w")
 
             if self.selective_attention_type == "anchor":
-                # For Anchor Extended Attention, apply the selection function F from Eq. (3)
-                # F := { DropFG(Morig) ∪ DropBG(~Morig) } ∘ A
+                # Faster random generation
+                fg_mask = torch.rand(1, 1, self.feature_h, self.feature_w,
+                                     dtype=self.precision, device=latent_morig.device) < self.fg_dropout_percentage
+                bg_mask = torch.rand(1, 1, self.feature_h, self.feature_w,
+                                     dtype=self.precision, device=latent_morig.device) < self.bg_dropout_percentage
 
-                # Generate foreground dropout pattern (DropFG)
-                fg_random_pattern = torch.bernoulli(
-                    torch.ones(1, 1, self.feature_h, self.feature_w,
-                               dtype=self.precision, device=latent_morig.device) *
-                    self.fg_dropout_percentage)
-                # Generate background dropout pattern (DropBG)
-                bg_random_pattern = torch.bernoulli(
-                    torch.ones(1, 1, self.feature_h, self.feature_w,
-                               dtype=self.precision, device=latent_morig.device) *
-                    self.bg_dropout_percentage
-                )
-
-                # Create the anchor positions (F(Morig))
-                anchor_positions = torch.where(
-                    latent_morig > 0,
-                    latent_morig * fg_random_pattern,  #  DropFG(Morig)
-                    bg_random_pattern  # DropBG(~Morig)
-                )
+                anchor_positions = torch.where(latent_morig > 0,
+                                               latent_morig * fg_mask.float(),
+                                               bg_mask.float())
             else:
-                # For Masked Extended Attention, use the original mask directly
-                # F(A) = Morig ∘ A
                 anchor_positions = latent_morig
 
+            # Collect all extends THEN concatenate once
+            st_key_extends = []
+            st_value_extends = []
+
             for i in range(self.latent_num_frames):
-                # Get indices where anchor positions are non-zero
                 nonzero_indices = anchor_positions[0][i].nonzero()
-                h_indices = nonzero_indices[:, 0]
-                w_indices = nonzero_indices[:, 1]
+                if len(nonzero_indices) > 0:  # Check if any anchors exist
+                    h_indices = nonzero_indices[:, 0]
+                    w_indices = nonzero_indices[:, 1]
 
-                # Extract features at anchor positions (K^E and V^E in the paper)
-                st_key_extend = st_source_key_rerange[0, :, i, h_indices, w_indices, :].clone().unsqueeze(0)
-                st_value_extend = st_source_value_rerange[0, :, i, h_indices, w_indices, :].clone().unsqueeze(0)
+                    # No need to clone here
+                    st_key_extend = st_source_key_rerange[0, :, i, h_indices, w_indices, :].unsqueeze(0)
+                    st_value_extend = st_source_value_rerange[0, :, i, h_indices, w_indices, :].unsqueeze(0)
 
-                st_key_cond = torch.cat([st_key_cond, st_key_extend], dim=-2)
-                st_value_cond = torch.cat([st_value_cond, st_value_extend], dim=-2)
+                    st_key_extends.append(st_key_extend)
+                    st_value_extends.append(st_value_extend)
 
-        return self.apply_extended_attention(query, key_cond, value_cond, st_key_cond, st_value_cond, text_seq_length, attention_mask)
+            # Single concatenation operation
+            if st_key_extends:
+                all_key_extends = torch.cat(st_key_extends, dim=-2)
+                all_value_extends = torch.cat(st_value_extends, dim=-2)
+                st_key_cond = torch.cat([key_cond, all_key_extends], dim=-2)
+                st_value_cond = torch.cat([value_cond, all_value_extends], dim=-2)
+            else:
+                st_key_cond = key_cond
+                st_value_cond = value_cond
+
+        return self.apply_extended_attention(query, key_cond, value_cond, st_key_cond, st_value_cond, text_seq_length,
+                                             attention_mask)
 
     def apply_extended_attention(self, query, key_cond, value_cond, st_key_cond, st_value_cond, text_seq_length, attention_mask):
         """
@@ -259,18 +227,20 @@ class ModuleWithExtendedAttention(torch.nn.Module):
                 key[:, :, text_seq_length:] = apply_rotary_emb(key[:, :, text_seq_length:], image_rotary_emb)
 
         if self.with_injection and (query.shape[0] > 1):
-            with torch.backends.cuda.sdp_kernel(enable_math=True):
-                key_cond, key_uncond = key.chunk(2)
-                source_key = key_uncond.clone()
-                value_cond, value_uncond = value.chunk(2)
-                source_value = value_uncond.clone()
-                hidden_states_cond = self.apply_selective_attention(query, key_cond, value_cond, source_key, source_value, text_seq_length, attention_mask)
-                hidden_states_uncond = F.scaled_dot_product_attention(
-                    query[[1]], key[[1]], value[[1]], attn_mask=attention_mask, dropout_p=0.0, is_causal=False
-                )
-                hidden_states = torch.cat([hidden_states_cond, hidden_states_uncond], dim=0)
+            # Remove enable_math=True to use optimized kernels
+            key_cond, key_uncond = key.chunk(2)
+            source_key = key_uncond  # No clone needed
+            value_cond, value_uncond = value.chunk(2)
+            source_value = value_uncond
+
+            hidden_states_cond = self.apply_selective_attention(query, key_cond, value_cond, source_key, source_value,
+                                                                text_seq_length, attention_mask)
+            hidden_states_uncond = F.scaled_dot_product_attention(
+                query[[1]], key[[1]], value[[1]], attn_mask=attention_mask, dropout_p=0.0, is_causal=False
+            )
+            hidden_states = torch.cat([hidden_states_cond, hidden_states_uncond], dim=0)
         else:
-            with torch.backends.cuda.sdp_kernel(enable_math=True):
+            with torch.backends.cuda.sdp_kernel(enable_flash=True, enable_math=False, enable_mem_efficient=True):
                 hidden_states = F.scaled_dot_product_attention(
                     query, key, value,
                     attn_mask=attention_mask, dropout_p=0.0, is_causal=False
